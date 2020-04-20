@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="network">
+      <UniqueIdentifier>{5dc80a06-4fd1-428d-8254-a00fcc0f50c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\server">
+      <UniqueIdentifier>{b942626b-bda6-40d4-807f-65c1d8e60e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\client">
+      <UniqueIdentifier>{a6a1d0d3-7ae3-4471-b95c-450fc7dac75c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools">
+      <UniqueIdentifier>{506d0ffa-63aa-493d-9cc7-18c4b8ac62f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="database">
+      <UniqueIdentifier>{ee194ce4-37c3-4663-a053-4e8c6350b46b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="repository">
+      <UniqueIdentifier>{c455a1c7-fb5e-4864-8721-02caf6b77f10}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="client_process.cpp">
+      <Filter>network\client</Filter>
+    </ClCompile>
+    <ClCompile Include="server.cpp">
+      <Filter>network\server</Filter>
+    </ClCompile>
+    <ClCompile Include="log.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="database.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
+    <ClCompile Include="repo.cpp">
+      <Filter>repository</Filter>
+    </ClCompile>
+    <ClCompile Include="repo_manager.cpp">
+      <Filter>repository</Filter>
+    </ClCompile>
+    <ClCompile Include="problem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="client_process.h">
+      <Filter>network\client</Filter>
+    </ClInclude>
+    <ClInclude Include="server.h">
+      <Filter>network\server</Filter>
+    </ClInclude>
+    <ClInclude Include="log.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="database.h">
+      <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="repo_manager.h">
+      <Filter>repository</Filter>
+    </ClInclude>
+    <ClInclude Include="repo.h">
+      <Filter>repository</Filter>
+    </ClInclude>
+    <ClInclude Include="problem.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

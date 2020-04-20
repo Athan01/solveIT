@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="pre">
+      <UniqueIdentifier>{99c36663-68c5-4664-a23e-ae7b06123695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui">
+      <UniqueIdentifier>{ab670890-2770-482b-b2f2-d875b84f6a71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base">
+      <UniqueIdentifier>{1dfd58b4-b670-4506-8fcd-d38c51df3d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal">
+      <UniqueIdentifier>{2b69613d-0f50-42f5-87b5-77b9f5d78116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network">
+      <UniqueIdentifier>{7b688144-55f6-4b0c-8375-6f5f7d2d1c1a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui-SFML.cpp">
+      <Filter>pre</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>pre</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>pre</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>pre</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>pre</Filter>
+    </ClCompile>
+    <ClCompile Include="app.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="file_browser.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="menus.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="resource.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="connection.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="trigger.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="trigger_manager.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="requests.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="app.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="file_browser.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="menus.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="connection.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="trigger.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="trigger_manager.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="requests.h">
+      <Filter>network</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
