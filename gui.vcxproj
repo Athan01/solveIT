@@ -139,8 +139,10 @@
     <ClCompile Include="menus.cpp" />
     <ClCompile Include="requests.cpp" />
     <ClCompile Include="resource.cpp" />
+    <ClCompile Include="response.cpp" />
     <ClCompile Include="trigger.cpp" />
     <ClCompile Include="trigger_manager.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h" />
@@ -150,8 +152,10 @@
     <ClInclude Include="menus.h" />
     <ClInclude Include="requests.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="response.h" />
     <ClInclude Include="trigger.h" />
     <ClInclude Include="trigger_manager.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

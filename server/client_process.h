@@ -3,6 +3,7 @@
 #include <thread>
 #include <iostream>
 #include "util.h"
+#include "client_profile.h"
 using namespace std;
 using namespace sf;
 class client_process
@@ -22,7 +23,6 @@ public:
 	
 	bool disconnected = 0;
 	string name = "NaN";
-	long id;
 	Mutex out_bound;
 	Mutex in_bound;
 private:
@@ -36,7 +36,7 @@ public:
 	Packet& get_outbound();
 	Packet& get_inbound();
 	IpAddress ip() { return sock->getRemoteAddress(); }
-	client_process(TcpSocket* sock,const long id);
+	client_process(TcpSocket* sock);
 	~client_process();
 };
 

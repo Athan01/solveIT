@@ -13,8 +13,9 @@ struct file
 	string path;
 	string content;
 	string name;
-	file(string path);
+	file(string path,bool load = 1);
 	unsigned int size() { return content.size(); }
+	void write(bool append = 0) { ofstream out; if (append)out.open(path.c_str(), ios::app); else out.open(path.c_str()); out << content; out.close(); }
 }extern nullfile;
 
 
@@ -24,6 +25,7 @@ public:
 	vector<repo>subrepos;
 	vector<file>files;
 	string name;
+	string path;
 private:
 
 public:
@@ -33,6 +35,7 @@ public:
 	repo& get_repo(string relative_path);
 	/// first repos, then members
 	pair<vector<string>, vector<string> >get_members();
-	// ok retard
+	repo& add_repo(const string name);
+	file& add_file(const string name,bool load = 1);
 }extern root;
 

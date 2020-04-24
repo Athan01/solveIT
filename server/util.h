@@ -27,7 +27,7 @@ extern std::string current_time;
 extern bool closed;
 void update_time();
 
-unsigned int load_file(const std::string filename, std::string &out);
+int load_file(const std::string filename, std::string &out);
 
 unsigned int send_image(const std::string filename, std::string& out);
 

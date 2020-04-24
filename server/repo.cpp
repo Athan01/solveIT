@@ -3,29 +3,39 @@
 repo root("C:\\Users\\ioanm\\Desktop\\root");
 file nullfile("null");
 
-file::file(string path) : path(path)
+file::file(string path,bool load) : path(path)
 {
-	if (load_file(path, content) > 0)
+	if (load)
 	{
-		//cerr << current_time << ": Loaded file " << path << " .\n";
-		for (short i = path.size() - 1; i >= 0; i--)
+		if (load_file(path, content) > 0)
 		{
-			if (path[i] == '\\')
+			cerr << current_time << ": Loaded file " << path << " .\n";
+			for (short i = path.size() - 1; i >= 0; i--)
 			{
-				name = path.substr(i + 1);
-				break;
+				if (path[i] == '\\')
+				{
+					name = path.substr(i + 1);
+					break;
+				}
 			}
+		}
+		else
+		{
+			cerr << current_time << ": Failed to load file " << path << "\n";
+			//delete this;
+			content.clear();
+			ofstream f(path.c_str());
+			f.close();
 		}
 	}
 	else
 	{
-		//cerr << current_time << ": Failed to load file " << path << "\n";
-		delete this;
+		cerr << current_time << "Created file " << path << "\n";
 	}
 }
 
 
-repo::repo(const string directory)
+repo::repo(const string directory) : path(directory)
 {
 	
 	for (auto& entry : fs::directory_iterator(directory))
@@ -48,7 +58,7 @@ repo::repo(const string directory)
 			break;
 		}
 	}
-	//cout << "Created repository with with path " << directory << " and " << files.size() << " files, and " << subrepos.size() << " repositores\n";
+	cerr << current_time << "Created repository with with path " << directory << " and " << files.size() << " files, and " << subrepos.size() << " repositores\n";
 	//cout << name << " ";
 }
 
@@ -99,8 +109,22 @@ pair<vector<string>, vector<string>> repo::get_members()
 		repos.push_back(subrepos[i].name);
 	for (short i = 0; i < files.size(); i++)
 		file.push_back(files[i].name);
+	/// first repos, then files
 	pair<vector<string>, vector<string> >a(repos, file);
 	return a;
+}
+
+repo& repo::add_repo(const string name)
+{
+	experimental::filesystem::create_directory(experimental::filesystem::path(path + '\\' + name));
+	subrepos.push_back(path + '\\' + name);
+	return subrepos.back();
+}
+
+file& repo::add_file(const string name,bool load)
+{
+	files.push_back(file(path + '\\' + name,load));
+	return files.back();
 }
 
 

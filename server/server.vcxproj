@@ -124,23 +124,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="client_handler.cpp" />
     <ClCompile Include="client_process.cpp" />
+    <ClCompile Include="client_profile.cpp" />
     <ClCompile Include="database.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="problem.cpp" />
     <ClCompile Include="repo.cpp" />
-    <ClCompile Include="repo_manager.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="client_handler.h" />
     <ClInclude Include="client_process.h" />
+    <ClInclude Include="client_profile.h" />
     <ClInclude Include="database.h" />
     <ClInclude Include="log.h" />
     <ClInclude Include="problem.h" />
     <ClInclude Include="repo.h" />
-    <ClInclude Include="repo_manager.h" />
     <ClInclude Include="server.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>

@@ -1,41 +1,36 @@
 #include "database.h"
 
-database::database(const string file)
+database::database()
 {
-	ifstream in(file.c_str());
-
-	string user_buff, pass_buff;
-	while (in >> user_buff >> pass_buff)
+	accounts = new repo("C:\\Users\\ioanm\\Desktop\\accounts");
+	string user;
+	string pass;
+	for (int i = 0; i < accounts->subrepos.size(); i++)
 	{
-		users.push_back(pair<string, string>(user_buff, pass_buff));
+		string& a = accounts->get_file("accounts:" + istr(i) + ":basic.txt").path;
+		ifstream in(a.c_str());
+		in >> user >> pass;
+		users[user] = pass;
+		user_repo[user] = i;
 	}
-	in.close();
-
-	in.open("blacklist.txt");
-
-	
-	while (in >> user_buff)
-	{
-		blacklist.push_back(user_buff);
-	}
-	in.close();
 }
 
-// -1 user not found, 0 password wrong, 1 login successful
+
 char database::login(const string username, const string password)
 {
-	for (short i = 0; i < users.size(); i++)
-	{
-		
-		if (users[i].first == username)
-		{
-			if (users[i].second == password)
-				return 1;
-			else return 0;
-		}
-	}
-	return -1;
+	if (users.find(username) == users.end())
+		return -1;
+	else if (users[username] != password)
+		return 0;
+	else return 1;
 }
+
+repo* database::get_associated_repo(const string username)
+{
+	return &accounts->get_repo("accounts:" + istr(user_repo[username]));;
+}
+
+
 
 bool database::is_blacklisted(const string ip_adress)
 {
@@ -88,6 +83,17 @@ void database::add_to_blacklist(const string ip_adress)
 	out.close();
 }
 
+void database::add_user(const string username, const string password)
+{
+	cerr << current_time << username + " registered with password " + password << '\n';
+	repo& a = accounts->add_repo(istr(accounts->subrepos.size()));
+	file & b = a.add_file("basic.txt",0);
+	b.content += username + ' ' + password + '\n' + '0' + ' ' + '0';
+	b.write();
+	a.add_file("history.txt");
+
+}
+
 void database::remove_blacklisted(const string ip)
 {
 	ifstream list("blacklist.txt");
@@ -103,8 +109,6 @@ void database::remove_blacklisted(const string ip)
 		}
 	}
 
-	
-	
 	list.close();
 	list2.close();
 
@@ -113,10 +117,4 @@ void database::remove_blacklisted(const string ip)
 		remove("blacklist.txt");
 		rename("blacklist2.txt", "blacklist.txt");
 	}
-	else
-	{
-		cout << ip << " not blacklisted\n";
-	}
-	
-
 }

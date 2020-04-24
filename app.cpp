@@ -9,14 +9,6 @@ app::app()
 	win.setFramerateLimit(30);
 	gui::SFML::Init(win);
 
-	
-
-	
-
-	
-
-	
-	
 	run();
 	gui::SFML::Shutdown();
 }
@@ -50,11 +42,7 @@ void app::load_triggers()
 	universal_triggers.add_trigger("connected", find_bool("connected"), 0);
 	universal_triggers.find_bool("connected").add_function(connect);
 	
-
-
 }
-
-
 
 void app::run()
 {
@@ -73,8 +61,7 @@ void app::run()
 		}
 		universal_triggers.run();
 		gui::SFML::Update(win, time.restart());
-		for (short i = 0; i < menus.size(); i++)
-			menus[i].run();
+		menus[find_int("state")].run();
 
 		
 		win.clear();

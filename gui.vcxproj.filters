@@ -71,6 +71,12 @@
     <ClCompile Include="requests.cpp">
       <Filter>network</Filter>
     </ClCompile>
+    <ClCompile Include="response.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h">
@@ -99,6 +105,12 @@
     </ClInclude>
     <ClInclude Include="requests.h">
       <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="response.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>internal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

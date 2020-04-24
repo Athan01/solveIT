@@ -48,7 +48,7 @@ void update_time()
 	sleep(seconds(0.3));
 }
 
-unsigned int load_file(const std::string filename, std::string &output)
+int load_file(const std::string filename, std::string &output)
 {
 	 char* arr;
 	 FileInputStream a;

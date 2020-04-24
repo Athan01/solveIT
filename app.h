@@ -8,7 +8,7 @@ using namespace sf;
 class app
 {
 	RenderWindow win;
-	std::vector<menu>menus;
+	
 	
 private:
 	void load_menus();

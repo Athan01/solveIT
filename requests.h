@@ -2,6 +2,7 @@
 #include <vector>
 #include <SFML/Config.hpp>
 #include <iostream>
+#include "response.h"
 using namespace std;
 using namespace sf;
 

@@ -11,10 +11,7 @@ using std::cout;
 
 int main()
 {
-	server a;
-	a.run();
-	
-	
+	database a;
 	system("pause");
 	
 }

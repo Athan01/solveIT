@@ -65,13 +65,11 @@ void client_process::handle_output()
 
 
 
-client_process::client_process(TcpSocket*sock,long id)
+client_process::client_process(TcpSocket*sock)
 {
-	this->id = id;
 	this->sock = sock;
 	in = new thread(spawn_in());
 	out = new thread(spawn_out());
-	
 	//log(sock->getRemoteAddress());
 }
 

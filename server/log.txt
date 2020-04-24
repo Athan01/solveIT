@@ -1,1 +1,5 @@
-2 35 9:  Server started 
+2 25 33: : Loaded file C:\Users\ioanm\Desktop\root\beginner\nig.txt .
+2 25 33: Created repository with with path C:\Users\ioanm\Desktop\root\beginner and 1 files, and 0 repositores
+2 25 33: Created repository with with path C:\Users\ioanm\Desktop\root\intermediate and 0 files, and 0 repositores
+2 25 33: Created repository with with path C:\Users\ioanm\Desktop\root and 0 files, and 2 repositores
+2 25 33: : Loaded file null .

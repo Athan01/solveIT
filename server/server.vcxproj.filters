@@ -50,11 +50,14 @@
     <ClCompile Include="repo.cpp">
       <Filter>repository</Filter>
     </ClCompile>
-    <ClCompile Include="repo_manager.cpp">
-      <Filter>repository</Filter>
-    </ClCompile>
     <ClCompile Include="problem.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="client_profile.cpp">
+      <Filter>network\client</Filter>
+    </ClCompile>
+    <ClCompile Include="client_handler.cpp">
+      <Filter>network\server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,14 +76,17 @@
     <ClInclude Include="database.h">
       <Filter>database</Filter>
     </ClInclude>
-    <ClInclude Include="repo_manager.h">
-      <Filter>repository</Filter>
-    </ClInclude>
     <ClInclude Include="repo.h">
       <Filter>repository</Filter>
     </ClInclude>
     <ClInclude Include="problem.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="client_profile.h">
+      <Filter>network\client</Filter>
+    </ClInclude>
+    <ClInclude Include="client_handler.h">
+      <Filter>network\server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
