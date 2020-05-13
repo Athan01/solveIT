@@ -6,6 +6,15 @@ map<string, float>floats;
 map<string, short>shorts;
 map<string, bool>booleans;
 map<string, chr>arrays;
+map<string, Texture>textures;
+
+sf::Packet& operator<<(sf::Packet& out, char* a)
+{
+	for (short i = 0; i < strlen(a); i++)
+		out << a[i];
+	out << '\n';
+	return out;
+}
 
 string& create_string(const string name, string value)
 {
@@ -30,6 +39,12 @@ bool& create_bool(const string name, bool value)
 chr& create_array(const string name, string value)
 {
 	arrays[name] = value; return arrays[name]; 
+}
+
+Texture& create_texture(const string name, const string filename)
+{
+	textures[name].loadFromFile(filename);
+	return textures[filename];
 }
 
 string& find_str(const string name)
@@ -57,20 +72,38 @@ chr& find_array(const string name)
 	return arrays[name]; 
 }
 
+Texture& find_texture(const string name)
+{
+	return textures[name];
+}
+
 void basic_resources()
 {
 	create_bool("exit");
 	create_bool("connected");
-
+	create_bool("logged") = 0;
+	create_bool("started");
 
 	create_int("state");
+	create_int("score");
+	create_int("dir_back") = -1;
+	create_int("dir_forward") = 1;
+	create_string("back");
+
+
 	create_array("username");
 	create_array("password");
+	auto ar = create_array("problem");
+	ar.resize(3000);
+
+
+	create_int("points");
 }
 
 chr::chr(const string copy)
 {
-	strcpy(ptr, copy.c_str());
+	if (!copy.empty())
+		strcpy(ptr, copy.c_str());
 }
 
 chr::~chr()

@@ -6,9 +6,19 @@ Packet& client_process::get_outbound()
 	return outbound;
 }
 
+Packet& client_process::get_outbound_n()
+{
+	return outbound;
+}
+
 Packet& client_process::get_inbound()
 {
 	Lock lock(in_bound);
+	return inbound;
+}
+
+Packet& client_process::get_inbound_n()
+{
 	return inbound;
 }
 
@@ -48,7 +58,6 @@ void client_process::handle_output()
 	while (!disconnected)
 	{
 		
-		out_bound.lock();
 		if (get_outbound().getDataSize() > 0)
 		{
 			status = sock->send(get_outbound());
@@ -58,7 +67,6 @@ void client_process::handle_output()
 			}
 			
 		}
-		out_bound.unlock();
 		sleep(milliseconds(DELAY));
 	}
 }

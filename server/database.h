@@ -26,7 +26,7 @@ public:
 	/// <summary>
 	///-1 user not found, 0 password wrong, 1 login successful
 	/// </summary>
-	char login(const string username, const string password); 
+	signed char login(const string username, const string password); 
 	/// <summary>
 	/// returns the repo associated with the username in the std::map user_repo
 	///</summary>
@@ -35,7 +35,7 @@ public:
 	bool is_blacklisted(const string ip_adress);
 	void temp_ban(const string ip, float time);
 	void add_to_blacklist(const string ip_adress);
-	void add_user(const string username, const string password);
+	signed char add_user(const string username, const string password);
 	void remove_blacklisted(const string ip);
 };
 

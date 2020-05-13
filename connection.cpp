@@ -74,7 +74,7 @@ void connection::connect()
 	if (sock.connect(ip, PORT) == Socket::Done)
 	{
 		connected = 1;
-		cerr << "Succesfully connected to " << ip << ":" << PORT << "\n";
+		cerr  << "Succesfully connected to " << ip << ":" << PORT << "\n";
 	}
 }
 
@@ -86,7 +86,8 @@ void connection::handle_input()
 		{
 			if (sock.receive(get_inbound()) == Socket::Done)
 			{
-
+				cout << "Received pack ";
+				responses.handle_response(get_inbound());
 			}
 			else
 			{

@@ -4,7 +4,6 @@ request bad_request;
 void create_request(const Uint8 type)
 {
 	requests.push_back(request(type));
-	cout << "request created " << type << " " << requests.size();
 }
 
 bool load_request(initializer_list<void*> list)

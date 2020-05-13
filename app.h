@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "imgui-SFML.h"
 #include <iostream>
+#include <Windows.h>
 #include "menu.h"
 
 using namespace sf;

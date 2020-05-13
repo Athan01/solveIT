@@ -2,21 +2,23 @@
 
 database::database()
 {
-	accounts = new repo("C:\\Users\\ioanm\\Desktop\\accounts");
+	accounts = new repo("C:\\Users\\ioanm\\Desktop\\root\\accounts");
 	string user;
 	string pass;
 	for (int i = 0; i < accounts->subrepos.size(); i++)
 	{
 		string& a = accounts->get_file("accounts:" + istr(i) + ":basic.txt").path;
 		ifstream in(a.c_str());
+		
 		in >> user >> pass;
 		users[user] = pass;
 		user_repo[user] = i;
+		in.close();
 	}
 }
 
 
-char database::login(const string username, const string password)
+signed char database::login(const string username, const string password)
 {
 	if (users.find(username) == users.end())
 		return -1;
@@ -83,14 +85,27 @@ void database::add_to_blacklist(const string ip_adress)
 	out.close();
 }
 
-void database::add_user(const string username, const string password)
+signed char database::add_user(const string username, const string password)
 {
-	cerr << current_time << username + " registered with password " + password << '\n';
-	repo& a = accounts->add_repo(istr(accounts->subrepos.size()));
-	file & b = a.add_file("basic.txt",0);
-	b.content += username + ' ' + password + '\n' + '0' + ' ' + '0';
-	b.write();
-	a.add_file("history.txt");
+
+	// check if chr valid maybe?
+
+	if (users.count(username) == 0)
+	{
+		cerr << current_time << username + " registered with password " + password << '\n';
+		repo& a = accounts->add_repo(istr(accounts->subrepos.size()));
+		file& b = a.add_file("basic.txt", 0);
+		b.content += username + ' ' + password + '\n' + '0' + ' ' + '0';
+		users[username] = password;
+		user_repo[username] = users.size() - 1;
+		b.write();
+		a.add_file("history.txt");
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 
 }
 

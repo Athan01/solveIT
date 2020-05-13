@@ -24,6 +24,14 @@ string fstr(const float a)
 	return in.str();
 }
 
+string cstr(sf::Clock& clock)
+{
+
+	return istr(clock.getElapsedTime().asSeconds() / 3600) + ':' + istr((int)clock.getElapsedTime().asSeconds() % 3600 / 60) + ':' + istr((int)clock.getElapsedTime().asSeconds() % 60);
+}
+
+
+
 int stri(string a)
 {
 	return stoi(a);

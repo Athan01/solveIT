@@ -6,18 +6,34 @@
 #include <iostream>
 #include <stdio.h>
 #include "util.h"
+#include "repo.h"
 
 using namespace std;
 
+enum results
+{
+	correct,
+	incorrect,
+	timeout
+};
+
 class problem
 {
+	
+
 	vector<string>solutions;
-	const string name;
 public:
+	file& path;
+	file& path_req;
+	string name;
 
 private:
+
 public:
-	problem(const std::string problem_name);
-	bool check(const std::string solution);
+	problem(file& problem);
+	vector<string>get_solutions();
+	results check(std::string& solution);
 };
+
+extern string working_dir;
 

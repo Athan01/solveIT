@@ -77,6 +77,8 @@ server::server()
 
 server::~server()
 {
+	delete listening_thread;
+	delete command_thread;
 	
 }
 

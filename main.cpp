@@ -1,8 +1,11 @@
 #include <iostream>
 #include <string>
 #include "app.h"
-#include <CoreWindow.h>
+#include <Windows.h>
+
+
 using std::cout;
+using std::map;
 
 int main(int argc,char *argv[])
 {
@@ -10,6 +13,6 @@ int main(int argc,char *argv[])
 	basic_resources();
 	app main;
 
-	
 	//system("pause");
+	return EXIT_SUCCESS;
 }

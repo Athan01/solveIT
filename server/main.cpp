@@ -2,16 +2,22 @@
 #include <string>
 #include "server.h"
 #include <ctime>
-#include "problem.h"
+#include "problem_holder.h"
 #include "repo.h"
 using namespace sf;
 using std::cout;
 
 
 
-int main()
+int main(int argc,char* argv[])
 {
-	database a;
+	if (argc > 1)
+		if (strcmp(argv[1],"-noconsole")==0)
+		{
+			FreeConsole();
+		}
+	server a;
+	a.run();
 	system("pause");
 	
 }

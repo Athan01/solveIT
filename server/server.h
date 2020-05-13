@@ -15,6 +15,9 @@ class server
 	thread* command_thread;
 	string command = "";
 	client_handler clients;
+
+	
+
 public:
 
 private:
@@ -23,10 +26,8 @@ private:
 	thread spawn_listen();
 	thread spawn_cmd();
 
-	void send_message();
 	void ban();
 	void kick();
-	void send_file();
 	
 public:
 	server();

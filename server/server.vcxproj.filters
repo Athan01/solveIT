@@ -27,6 +27,9 @@
     <Filter Include="repository">
       <UniqueIdentifier>{c455a1c7-fb5e-4864-8721-02caf6b77f10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="problems">
+      <UniqueIdentifier>{02b1a33a-9331-4cdd-ad28-b3555851c9e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,14 +53,20 @@
     <ClCompile Include="repo.cpp">
       <Filter>repository</Filter>
     </ClCompile>
-    <ClCompile Include="problem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="client_profile.cpp">
       <Filter>network\client</Filter>
     </ClCompile>
     <ClCompile Include="client_handler.cpp">
       <Filter>network\server</Filter>
+    </ClCompile>
+    <ClCompile Include="problem.cpp">
+      <Filter>problems</Filter>
+    </ClCompile>
+    <ClCompile Include="problem_holder.cpp">
+      <Filter>problems</Filter>
+    </ClCompile>
+    <ClCompile Include="quiz.cpp">
+      <Filter>problems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,14 +88,20 @@
     <ClInclude Include="repo.h">
       <Filter>repository</Filter>
     </ClInclude>
-    <ClInclude Include="problem.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="client_profile.h">
       <Filter>network\client</Filter>
     </ClInclude>
     <ClInclude Include="client_handler.h">
       <Filter>network\server</Filter>
+    </ClInclude>
+    <ClInclude Include="problem.h">
+      <Filter>problems</Filter>
+    </ClInclude>
+    <ClInclude Include="problem_holder.h">
+      <Filter>problems</Filter>
+    </ClInclude>
+    <ClInclude Include="quiz.h">
+      <Filter>problems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

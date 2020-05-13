@@ -131,6 +131,8 @@
     <ClCompile Include="log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="problem.cpp" />
+    <ClCompile Include="problem_holder.cpp" />
+    <ClCompile Include="quiz.cpp" />
     <ClCompile Include="repo.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="util.cpp" />
@@ -142,6 +144,8 @@
     <ClInclude Include="database.h" />
     <ClInclude Include="log.h" />
     <ClInclude Include="problem.h" />
+    <ClInclude Include="problem_holder.h" />
+    <ClInclude Include="quiz.h" />
     <ClInclude Include="repo.h" />
     <ClInclude Include="server.h" />
     <ClInclude Include="util.h" />

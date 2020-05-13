@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Network/Packet.hpp>
 #include <vector>
+#include <fstream>
 #include "resource.h"
 #include "menu.h"
 using namespace std;
@@ -11,12 +12,15 @@ using namespace sf;
 ///</summary>
 struct response_interpretor
 {
-	const Uint8 request_type;
-	void (*f)(const char,Packet&);
-	response_interpretor(const Uint8 initial_request);
-};
+	void login_response(Packet& pack);
+	void register_response(Packet& pack);
+	void browser_response(Packet& pack);
+	void file_response(Packet& pack);
+	void handle_response(Packet& pack);
+	void problem_response(Packet& pack);
+	void quiz_response(Packet& pack);
+	// problem score
+	void score_response(Packet& pack);
+}extern responses;
 
-void login_response(const char response,Packet& pack);
-void register_response(const char response,Packet& pack);
 
-map<Uint8,response_interpretor>responses;

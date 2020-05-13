@@ -1,30 +1,142 @@
 #include "response.h"
+response_interpretor responses;
 
-response_interpretor::response_interpretor(const Uint8 initial_request) : request_type(initial_request)
+
+void response_interpretor::login_response(Packet& pack)
 {
-	switch (request_type)
+	Int8 ans;
+	pack >> ans;
+	cout << (int)ans;
+	switch (ans)
 	{
-	case 'l':
-		f = login_response;
+	case -1:
+		menus[find_int("state")]->create_popup("login failed user not found");
 		break;
-	case 'r':
-		f = register_response;
+	case 0:
+		menus[find_int("state")]->create_popup("login failed password wrong");
+		break;
+	case 1:
+		menus[find_int("state")]->create_popup("login succesful");
+		find_bool("logged") = 1;
 		break;
 	}
 }
 
-void login_response(const char response, Packet& pack)
+void response_interpretor::register_response(Packet& pack)
 {
-	if (response == 1)
+	Int8 ans;
+	pack >> ans;
+	switch (ans)
 	{
-		find_int("state") = 2;
+	case -1:
+		menus[find_int("state")]->create_popup("register failed password wrong");
+	case 0:
+		menus[find_int("state")]->create_popup("register failed username already in use");
+		break;
+	case 1:
+		/*menus[find_int("state")]->create_popup("registration succesful");*/
+		find_bool("logged") = 1;
+		break;
+	}
+}
+
+void response_interpretor::browser_response(Packet& pack)
+{
+	string buffer;
+	profile.files.clear();
+	pack >> profile.current_path;
+	cout << profile.current_path << " ";
+	while (pack >> buffer)
+	{
+		profile.files.push_back(buffer);
+		cout << buffer << " ";
+	}
+}
+
+void response_interpretor::file_response(Packet& pack)
+{
+	string filename;
+	string content;
+	pack >> filename;
+	ofstream out(filename.c_str());
+	pack >> content;
+	out << content;
+
+
+	
+
+	out.close();
+	string cmd = "start " + filename;
+	system(cmd.c_str());
+}
+
+
+void response_interpretor::handle_response(Packet& pack)
+{
+	static Uint8 type;
+	pack >> type;
+	cout << type;
+	switch (type)
+	{
+	case 'l':
+		login_response(pack);
+		break;
+	case 'r':
+		register_response(pack);
+		break;
+	case 'b':
+		browser_response(pack);
+		break;
+	case 'f':
+		file_response(pack);
+		break;
+	case 'p':
+		problem_response(pack);
+		break;
+	case 'q':
+		quiz_response(pack);
+		break;
+	case 's':
+		score_response(pack);
+		break;
+
+	}
+}
+
+void response_interpretor::problem_response(Packet& pack)
+{
+	find_int("state") = 5;
+	find_array("problem");
+	pack >> problem.title;
+	string buffer;
+	while (pack >> buffer)
+	{
+		problem.requirement += buffer;
+	}
+}
+
+void response_interpretor::quiz_response(Packet& pack)
+{
+	find_int("state") = 6;
+	quiz.load_quiz(pack);
+	
+}
+
+void response_interpretor::score_response(Packet& pack)
+{
+	problem.finished = 1;
+	Uint8 result;
+	pack >> result;
+	if (result == 0)
+	{
+		problem.result = "Correct";
+	}
+	else if (result == 1)
+	{
+		problem.result = "Incorrect";
 	}
 	else
 	{
-		menus[find_int("state")].create_popup("login failed");
+		problem.result = "Time out";
 	}
-}
-
-void register_response(const char response, Packet& pack)
-{
 }

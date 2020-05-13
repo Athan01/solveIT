@@ -1,6 +1,7 @@
 #include "repo.h"
 
 repo root("C:\\Users\\ioanm\\Desktop\\root");
+repo nullrepo;
 file nullfile("null");
 
 file::file(string path,bool load) : path(path)
@@ -10,14 +11,7 @@ file::file(string path,bool load) : path(path)
 		if (load_file(path, content) > 0)
 		{
 			cerr << current_time << ": Loaded file " << path << " .\n";
-			for (short i = path.size() - 1; i >= 0; i--)
-			{
-				if (path[i] == '\\')
-				{
-					name = path.substr(i + 1);
-					break;
-				}
-			}
+			
 		}
 		else
 		{
@@ -31,6 +25,15 @@ file::file(string path,bool load) : path(path)
 	else
 	{
 		cerr << current_time << "Created file " << path << "\n";
+	}
+
+	for (short i = path.size() - 1; i >= 0; i--)
+	{
+		if (path[i] == '\\')
+		{
+			name = path.substr(i + 1);
+			break;
+		}
 	}
 }
 
@@ -46,8 +49,26 @@ repo::repo(const string directory) : path(directory)
 		}
 		else
 		{
-			files.push_back(file(entry.path().u8string()));
+			/// DONT LOAD THESE FORMATS
+			if (entry.path().u8string().substr(entry.path().u8string().find('.') + 1) == "exe")
+			{
+				files.push_back(file(entry.path().u8string(),0));
+			}
+			else if (entry.path().u8string().substr(entry.path().u8string().find('.') + 1) == "prb")
+			{
+				files.push_back(file(entry.path().u8string(), 0));
+			}
+			else if (entry.path().u8string().substr(entry.path().u8string().find('.') + 1) == "quiz")
+			{
+				files.push_back(file(entry.path().u8string(), 0));
+			}
+			/// LOAD FILES NOT OF ANY OF THESE 3 FORMATS
+			else
+			{
+				files.push_back(file(entry.path().u8string()));
+			}
 		}
+		cerr << current_time << "Created repository with with path " << directory << " and " << files.size() << " files, and " << subrepos.size() << " repositores\n";
 	}
 
 	for (short i = directory.size() - 1; i >= 0; i--)
@@ -58,8 +79,6 @@ repo::repo(const string directory) : path(directory)
 			break;
 		}
 	}
-	cerr << current_time << "Created repository with with path " << directory << " and " << files.size() << " files, and " << subrepos.size() << " repositores\n";
-	//cout << name << " ";
 }
 
 unsigned int repo::size()
@@ -74,6 +93,13 @@ unsigned int repo::size()
 
 file& repo::get_file(string relative_path)
 {
+	for (unsigned int i = 0; i < files.size(); i++)
+	{
+		if (files[i].name == relative_path)
+		{
+			return files[i];
+		}
+	}
 	relative_path.erase(relative_path.begin(), relative_path.begin() + relative_path.find(':')+1);
 	string current = relative_path.substr(0, relative_path.find(':'));
 	for (unsigned int i = 0; i < files.size(); i++)
@@ -96,8 +122,61 @@ file& repo::get_file(string relative_path)
 
 repo& repo::get_repo(string relative_path)
 {
-	// TODO: insert return statement here
-	return subrepos[0];
+	if (relative_path == name)
+	{
+		return *this;
+	}
+
+	string current;
+	if (relative_path.find(':') != string::npos)
+	{
+		relative_path.erase(relative_path.begin(), relative_path.begin() + relative_path.find(':') + 1);
+		current = relative_path.substr(0, relative_path.find(':'));
+	}
+	else
+	{
+		current = relative_path;
+	}
+	
+	for (unsigned int i = 0; i < subrepos.size(); i++)
+	{
+		if (subrepos[i].name == current)
+		{
+			return subrepos[i];
+		}
+	}
+
+	return nullrepo;
+}
+
+repo& repo::find_by_name(const string name)
+{
+	if (name == this->name)
+		return *this;
+	for (short i = 0; i < subrepos.size(); i++)
+	{
+		if (subrepos[i].name == name)
+			return subrepos[i];
+		if (&subrepos[i].find_by_name(name) != &nullrepo)
+		{
+			return subrepos[i].find_by_name(name);
+		}
+	}
+	return nullrepo;
+}
+
+file& repo::find_by_name_f(const string name)
+{
+	for (short i = 0; i < files.size(); i++)
+		if (files[i].name == name)
+			return files[i];
+	for (short i = 0; i < subrepos.size(); i++)
+	{
+		auto& a = subrepos[i].find_by_name_f(name);
+			if (&a != &nullfile)
+				return a;
+	}
+	return nullfile;
 }
 
 pair<vector<string>, vector<string>> repo::get_members()

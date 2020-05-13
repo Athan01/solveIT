@@ -34,8 +34,16 @@ private:
 	void handle_output();
 public:
 	Packet& get_outbound();
+	Packet& get_outbound_n();
 	Packet& get_inbound();
+	Packet& get_inbound_n();
 	IpAddress ip() { return sock->getRemoteAddress(); }
+	
+	void lock_out() { out_bound.lock(); }
+	void lock_in() { in_bound.lock(); }
+	void unlock_in() { in_bound.unlock(); }
+	void unlock_out() { out_bound.unlock(); }
+
 	client_process(TcpSocket* sock);
 	~client_process();
 };

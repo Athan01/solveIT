@@ -1,7 +1,9 @@
 #include "menu.h"
 #include <iostream>
 
-map<int, menu>menus;
+map<int, menu*>menus;
+
+int popup::id;
 
 void menu::create_popup(const std::string pop_message)
 {
@@ -26,7 +28,7 @@ void popup::run()
 {
 	OpenPopup(name.c_str());
 	BeginPopup(name.c_str());
-	Text(message.c_str());
+	ImGui::Text(message.c_str());
 	if (Button("close"))
 	{
 		CloseCurrentPopup();
