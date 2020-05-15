@@ -9,6 +9,7 @@ quiz::quiz(file& q) : path(q)
 	ifstream in(q.path);
 	if (in.is_open())
 	{
+		in >> reward;
 		in >> title;
 		string buffer;
 		while (in >> buffer)

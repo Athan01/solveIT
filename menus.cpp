@@ -3,6 +3,7 @@
 
 void bar()
 {
+	static bool pop = 0;
 	SetWindowFontScale(3);
 	if (BeginMenuBar())
 	{
@@ -10,22 +11,52 @@ void bar()
 		{
 			if (MenuItem("profile"))
 			{
+				create_request('d');
 				find_int("state") = 3;
+			}
+			if (MenuItem("finished problems"))
+			{
+				rankings.clear();
+				create_request('d');
+				find_int("state") = 7;
 			}
 			if (MenuItem("problems"))
 			{
 				find_int("state") = 4;
 			}
-			
+			if (MenuItem("EXIT"))
+			{
+				pop = 1;
+			}
 			EndMenu();
 		}
 		
 		EndMenuBar();
 	}
+	if (pop)
+	{
+		OpenPopup("exit?");
+		if (BeginPopup("exit?"))
+		{
+			ImGui::Text("Are you sure you want to quit?");
+
+			if (Button("yes"))
+				exit(0);
+			SameLine();
+			if (Button("no"))
+			{
+				pop = 0;
+				CloseCurrentPopup();
+			}
+			EndPopup();
+		}
+	}
 }
 
 void menu0()
 {
+	if (Button("close"))
+		exit(0);
 	SetWindowFontScale(2.5);
 	//static char* loading = create_array("...", "connecting...").ptr;
 	static sf::Clock wait;
@@ -79,11 +110,14 @@ void menu1()
 	
 	if (Button("login"))
 	{
-		create_request('l');
+		
 		string *u = new string(user);
 		string *p = new string(pass);
+
+		create_request('l');
 		find_of_type('l')->load_in_position(u,0,'s');
 		find_of_type('l')->load_in_position(p, 1, 's');
+
 		//find_of_type('l')->set_types({ 's','s' });
 	}
 	Dummy(ImVec2(0, 100));
@@ -132,7 +166,17 @@ void menu2()
 
 void menu3()
 {
+	static Texture& t = find_texture("points");
 	bar();
+	LabelText("", "profile: ");
+	SameLine();
+	LabelText("", profile.username.c_str());
+
+	LabelText("", "total points: ");
+	SameLine();
+	LabelText("", istr(profile.points).c_str());
+	ImGui::Image(find_texture(istr(profile.pfp)));
+	
 	
 	
 	
@@ -188,27 +232,36 @@ void menu4()
 
 void menu5()
 {
-	static auto ar =find_array("problem");
+	static auto& ar =find_array("file");
 	static string pr;
 
 	SetWindowFontScale(2.5);
 	
-	Button("Go Back");
-
-	NewLine();
-
-	NewLine();
-
-	TextColored(ImVec4(201, 180, 34, 255), problem.title.c_str());
-	TextWrapped(problem.requirement.c_str());
-
-	if (Button("send"))
+	if (Button("Go Back"))
 	{
-		pr.clear();
-		pr.append(ar.ptr);
-		create_request('p');
-		find_of_type('p')->load_in_position(&problem.title, 0, 's');
-		find_of_type('p')->load_in_position(&pr, 1, 's');
+		create_request('d');
+		find_int("state") = 3;
+	}
+
+	NewLine();
+
+	NewLine();
+
+	TextColored(ImVec4(0, 1.f, 0.5, 255), problem.title.c_str());
+	TextWrapped(problem.requirement.c_str());
+	cout << find_bool("file_loaded");
+	if (find_bool("file_loaded"))
+	{
+		if (Button("send"))
+		{
+			pr = ar.ptr;
+			create_request('p');
+			find_of_type('p')->load_in_position(&problem.title, 0, 's');
+			find_of_type('p')->load_in_position(&pr, 1, 's');
+			
+			
+			find_bool("file_loaded") = 0;
+		}
 	}
 	if (problem.finished)
 	{
@@ -225,7 +278,7 @@ void menu6()
 	SetWindowFontScale(1.5);
 	static bool& start = find_bool("started");
 	static bool finished = 0;
-	static string res = "You got " + istr(quiz.percentage());
+	static string res = "You got " + istr(quiz.percentage()) + "%";
 	if (!start)
 		if (Button("start"))
 		{
@@ -236,19 +289,31 @@ void menu6()
 
 	if (start)
 	{
-		Indent(150);
+		//Indent(150);
 		ImGui::LabelText("",quiz.title.c_str());
 		SameLine();
 		ImGui::Text(cstr(*quiz.timer).c_str());
-		Unindent();
 		NewLine();
 		for (short i = 0; i < quiz.question.size(); i++)
 		{
 			NewLine();
-			ImGui::BulletText(quiz.question[i].c_str());
+			ImGui::TextWrapped(quiz.question[i].c_str());
+			
 			for (short j = 0; j < 4; j++)
 			{
-				ImGui::Text(quiz.answers[i][j].c_str());
+				if (!finished)
+					ImGui::Text(quiz.answers[i][j].c_str());
+				if (finished)
+				{
+					if (quiz.answers[i][j] == quiz.right_answer[i])
+						ImGui::TextColored(ImVec4(0,0.8,0.4,1),quiz.answers[i][j].c_str());
+					else
+					{
+						ImGui::TextColored(ImVec4(1, 0, 0.1, 1), quiz.answers[i][j].c_str());
+					}
+				}
+					
+
 				SameLine();
 				if (Checkbox(istr(i*4+j).c_str(),&quiz.buttons[i * 4 + j]))
 				{
@@ -264,21 +329,50 @@ void menu6()
 		if (Button("finish"))
 		{
 			finished = 1;
-		
-			find_int("results") = quiz.percentage();
-			res = "You got " + istr(quiz.percentage());
+			find_int("results") = (int)quiz.percentage();
+			res = "You got " + istr(find_int("results")) + '%';
 			create_request('q');
 			find_of_type('q')->load_in_position(&find_int("results"), 0, 'i');
-
-			
 		}
 		if (finished)
 		{
 			ImGui::Text(res.c_str());
 			if (Button("return"))
+			{
+				finished = 0;
+				create_request('d');
 				find_int("state") = 3;
+			}
+				
 		}
 			
 	}
+}
+
+void menu7()
+{
+	bar();
+	Columns(2);
+	for (short i = 0; i < profile.solved.size(); i++)
+		ImGui::Text(profile.solved[i].c_str());
+	NextColumn();
+	for (short i = 0; i < profile.solved.size(); i++)
+		ImGui::Text(istr(profile.scores[i]).c_str());
+
+	NextColumn();
+	if (rankings.empty())
+	{
+		if (Button("show rankings"))
+			create_request('c');
+	}
+	else
+	{
+		TextColored(ImVec4(1, 0.8, 0, 1), rankings.back().c_str());
+		for (short i = rankings.size()-2; i > -1; i--)
+		{
+			TextColored(ImVec4(1, 0.8, 0, 1), rankings[i].c_str());
+		}
+	}
+
 }
 

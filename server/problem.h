@@ -23,6 +23,7 @@ class problem
 
 	vector<string>solutions;
 public:
+	short reward;
 	file& path;
 	file& path_req;
 	string name;

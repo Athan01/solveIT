@@ -47,9 +47,6 @@
     <ClCompile Include="app.cpp">
       <Filter>base</Filter>
     </ClCompile>
-    <ClCompile Include="file_browser.cpp">
-      <Filter>gui</Filter>
-    </ClCompile>
     <ClCompile Include="menu.cpp">
       <Filter>gui</Filter>
     </ClCompile>
@@ -88,9 +85,6 @@
     <ClInclude Include="menu.h">
       <Filter>gui</Filter>
     </ClInclude>
-    <ClInclude Include="file_browser.h">
-      <Filter>gui</Filter>
-    </ClInclude>
     <ClInclude Include="menus.h">
       <Filter>gui</Filter>
     </ClInclude>
@@ -118,5 +112,21 @@
     <ClInclude Include="profile.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="resource2.h" />
+    <ClInclude Include="resource3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Downloads\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="asolveIT1.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

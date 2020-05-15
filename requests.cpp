@@ -1,5 +1,6 @@
 #include "requests.h"
 vector<request>requests;
+vector<request>last_requests;
 request bad_request;
 void create_request(const Uint8 type)
 {
@@ -19,6 +20,21 @@ bool load_request(initializer_list<void*> list)
 	requests.back().adresses.insert(requests.back().adresses.end(), list.begin(), list.end());
 	requests.back().wait_for--;
 	return 1;
+}
+
+void archive(request& req)
+{
+	bool found = 0;
+	for (short i=0;i<last_requests.size();i++)
+		if (last_requests[i].type == req.type)
+		{
+			last_requests[i] = req;
+			found = 1;
+			break;
+		}
+	if (!found)
+		last_requests.push_back(request(req));
+
 }
 
 void set_types(initializer_list<char> list)
@@ -51,6 +67,17 @@ request* find_of_type(const Uint8 type)
 			return &requests[i];
 		}
 			
+	return &bad_request;
+}
+
+request* find_archived(const Uint8 type)
+{
+	for (short i = 0; i < last_requests.size(); i++)
+		if (last_requests[i].type == type)
+		{
+			return &last_requests[i];
+		}
+
 	return &bad_request;
 }
 

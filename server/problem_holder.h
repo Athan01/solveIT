@@ -17,7 +17,9 @@ public:
 	/// returns 1 if it found a quiz 
 	/// </summary>
 	signed char find_by_file(file& f);
-	results check(string& problem_name,string& problem);
+	results check(string& problem_name, string& problem);
+	problem& find_problem(string& problem_name) {for (short i = 0; i < problems.size(); i++) if (problems[i]->name == problem_name)return *problems[i]; }
+	quiz& find_quiz(string& quiz_name) { for (short i = 0; i < quizes.size(); i++) if (quizes[i]->title == quiz_name)return *quizes[i]; }
 
 };
 

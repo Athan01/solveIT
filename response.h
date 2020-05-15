@@ -21,6 +21,12 @@ struct response_interpretor
 	void quiz_response(Packet& pack);
 	// problem score
 	void score_response(Packet& pack);
+
+	void data_response(Packet& pack);
+	void image_response(Packet& pack);
+	void ranking_response(Packet& pack);
+
+	bool bad(Packet& pack, Uint8 type);
 }extern responses;
 
 

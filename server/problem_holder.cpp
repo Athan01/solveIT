@@ -21,6 +21,43 @@ problem_holder::problem_holder()
 		}
 	}
 
+	files = root.find_by_name("intermediate").get_members().second;
+
+	for (short i = 0; i < files.size(); i++)
+	{
+		// found file of type quiz, add quiz
+		if (files[i].substr(files[i].find('.') + 1) == "quiz")
+		{
+			quizes.push_back(new quiz(root.get_file("root:problems:intermediate:" + files[i])));
+		}
+		// found file of type prb, add problem
+		else
+		{
+			problems.push_back(new problem(
+				root.get_file("root:solutions:" + files[i].substr(0, files[i].find('.')) + ".exe")
+			)
+			);
+		}
+	}
+	files = root.find_by_name("hard").get_members().second;
+
+	for (short i = 0; i < files.size(); i++)
+	{
+		// found file of type quiz, add quiz
+		if (files[i].substr(files[i].find('.') + 1) == "quiz")
+		{
+			quizes.push_back(new quiz(root.get_file("root:problems:hard:" + files[i])));
+		}
+		// found file of type prb, add problem
+		else
+		{
+			problems.push_back(new problem(
+				root.get_file("root:solutions:" + files[i].substr(0, files[i].find('.')) + ".exe")
+			)
+			);
+		}
+	}
+
 }
 
 signed char problem_holder::find_by_file(file& f)

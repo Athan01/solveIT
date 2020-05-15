@@ -79,6 +79,14 @@ Texture& find_texture(const string name)
 
 void basic_resources()
 {
+	create_texture("points", "res\\points.png");
+
+	for (short i = 0; i < 3; i++)
+	{
+		create_texture(istr(i), "res\\" + istr(i) + ".png");
+	}
+
+
 	create_bool("exit");
 	create_bool("connected");
 	create_bool("logged") = 0;
@@ -95,6 +103,8 @@ void basic_resources()
 	create_array("password");
 	auto ar = create_array("problem");
 	ar.resize(3000);
+	create_array("file");
+	create_bool("file_loaded");
 
 
 	create_int("points");

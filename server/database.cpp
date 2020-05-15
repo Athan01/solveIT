@@ -95,7 +95,7 @@ signed char database::add_user(const string username, const string password)
 		cerr << current_time << username + " registered with password " + password << '\n';
 		repo& a = accounts->add_repo(istr(accounts->subrepos.size()));
 		file& b = a.add_file("basic.txt", 0);
-		b.content += username + ' ' + password + '\n' + '0' + ' ' + '0';
+		b.content += username + ' ' + password + '\n' + '0' + ' ' + '1';
 		users[username] = password;
 		user_repo[username] = users.size() - 1;
 		b.write();

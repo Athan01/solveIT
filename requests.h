@@ -33,12 +33,15 @@ struct request
 };
 
 extern vector<request>requests;
+extern vector<request>last_requests;
 extern request bad_request;
 
 void create_request(const Uint8 type);
 bool load_request(initializer_list<void*>list);
+void archive(request& req);
 void load_in_position(void* ptr, const short pos,const Uint8 type);
 void set_types(initializer_list<char>list);
 void set_waiting_time(const short);
 
 request* find_of_type(const Uint8 type);
+request* find_archived(const Uint8 type);

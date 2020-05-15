@@ -12,6 +12,7 @@ struct question
 struct quiz
 {
 	string title;
+	short reward;
 	vector<question>questions;
 	file& path;
 	quiz(file& quiz);

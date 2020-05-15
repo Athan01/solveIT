@@ -27,5 +27,8 @@ void menu4();
 void menu5();
 // quiz solver menu
 void menu6();
+// problem viewing menu
+void menu7();
+
 
 

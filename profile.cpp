@@ -1,5 +1,6 @@
 #include "profile.h"
 
+vector<string>rankings;
 quiz_data quiz;
 user_data profile;
 problem_data problem;

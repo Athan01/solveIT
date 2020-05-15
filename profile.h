@@ -2,6 +2,7 @@
 #include <vector>
 #include <SFML/Network/Packet.hpp>
 #include <SFML/System/Clock.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <algorithm>
 #include <time.h>
 #include <stdlib.h>
@@ -41,10 +42,19 @@ struct problem_data
 
 struct user_data
 {
+	string username;
+	vector<string>solved;
+	vector<short>scores;
+	short pfp;
 	short points;
 
 	vector<string>files;
 	vector<bool>completed;
+
+
+
 	string current_path;
 }extern profile;
+
+extern vector<string>rankings;
 

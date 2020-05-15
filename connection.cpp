@@ -118,6 +118,7 @@ void connection::handle_output()
 
 void connection::handle_requests()
 {
+	static bool found = 0;
 	out_lock.lock();
 	for (short i = 0; i < requests.size(); i++)
 	{
@@ -139,14 +140,16 @@ void connection::handle_requests()
 			case 'i':
 				get_outbound(0) << *(int*)requests[i].adresses[j];
 				break;
-			// case 'v'
-					// vectors, with subtypes TBI	
+				// case 'v'
+						// vectors, with subtypes TBI	
 			}
 		}
-
-		
+		found = 1;
 	}
+	
 	out_lock.unlock();
+	for (short i = 0; i < requests.size(); i++)
+		archive(requests[i]);
 	requests.clear();
 }
 

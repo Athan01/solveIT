@@ -42,29 +42,30 @@ void response_interpretor::register_response(Packet& pack)
 
 void response_interpretor::browser_response(Packet& pack)
 {
-	string buffer;
-	profile.files.clear();
-	pack >> profile.current_path;
-	cout << profile.current_path << " ";
-	while (pack >> buffer)
-	{
-		profile.files.push_back(buffer);
-		cout << buffer << " ";
-	}
+		string buffer;
+		profile.files.clear();
+		pack >> profile.current_path;
+		cout << profile.current_path << " ";
+		while (pack >> buffer)
+		{
+			profile.files.push_back(buffer);
+			cout << buffer << " ";
+		}
 }
 
 void response_interpretor::file_response(Packet& pack)
 {
 	string filename;
-	string content;
+	string file;
 	pack >> filename;
 	ofstream out(filename.c_str());
-	pack >> content;
-	out << content;
+	pack >> file;
 
+	file.erase(file.end());
+	out << file;
 
 	
-
+	
 	out.close();
 	string cmd = "start " + filename;
 	system(cmd.c_str());
@@ -98,6 +99,15 @@ void response_interpretor::handle_response(Packet& pack)
 		break;
 	case 's':
 		score_response(pack);
+		break;
+	case 'd':
+		data_response(pack);
+		break;
+	case 'i':
+		image_response(pack);
+		break;
+	case 'c':
+		ranking_response(pack);
 		break;
 
 	}
@@ -139,4 +149,53 @@ void response_interpretor::score_response(Packet& pack)
 	{
 		problem.result = "Time out";
 	}
+}
+
+void response_interpretor::data_response(Packet& pack)
+{
+	pack >> profile.username;
+	pack >> profile.points;
+	cout << "NEW P";
+	cout << profile.points;
+	profile.solved.clear();
+	profile.scores.clear();
+	do
+	{
+		profile.solved.push_back({});
+		profile.scores.push_back({});
+	} while (pack >> profile.solved.back() >> profile.scores.back());
+	profile.solved.pop_back();
+	profile.scores.pop_back();
+}
+
+void response_interpretor::image_response(Packet& pack)
+{
+	pack >> profile.pfp;
+	cout << "IMAGE" << profile.pfp;
+}
+
+void response_interpretor::ranking_response(Packet& pack)
+{
+	rankings.clear();
+	string buff;
+	while (pack >> buff)
+	{
+		rankings.push_back(buff);
+	}
+}
+
+bool response_interpretor::bad(Packet& pack, Uint8 type)
+{
+	if (pack.getDataSize() > 3)
+	{
+		return 1;
+	}
+	else
+	{
+		cout << "Bad packet of type " + type + '\n';
+		create_request(type);
+		*find_of_type(type) = *find_archived(type);
+		return 0;
+	}
+
 }

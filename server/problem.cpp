@@ -3,7 +3,6 @@ string working_dir = "C:\\Users\\ioanm\\Desktop\\root\\solutions";
 
 problem::problem(file& problem) : path(problem) , path_req(root.find_by_name_f(problem.name.substr(0,problem.name.find('.'))+".prb"))
 {
-	cout << "HANDICAP" << problem.name.substr(0,problem.name.find('.')) + ".prb";
 	name = path.name.substr(0, path.name.find('.'));
 	solutions = get_solutions();
 	cerr << "Problem" << name << " loaded with solutions ";
@@ -31,7 +30,6 @@ vector<string> problem::get_solutions()
 	//system(cmd.c_str());
 	string namec = working_dir+"\\" +name + "o.txt";
 	ifstream in(namec);
-
 	do
 	{
 		solutions.push_back(string());

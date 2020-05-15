@@ -6,8 +6,8 @@ LONG_PTR originalsfmlcallback = 0x0;
 LRESULT CALLBACK mycallback(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
-	static chr file = create_array("file");
-	static bool loaded = create_bool("file_loaded");
+	static chr& file = find_array("file");
+	static bool &loaded = find_bool("file_loaded");
 	if (message == WM_DROPFILES)
 	{
 		HDROP hdrop = reinterpret_cast<HDROP>(wParam);
@@ -30,6 +30,7 @@ LRESULT CALLBACK mycallback(HWND handle, UINT message, WPARAM wParam, LPARAM lPa
 					file.resize(a.getSize()+1);
 				a.read(file.ptr, a.getSize());
 				file.ptr[a.getSize()] = '\0';
+				loaded = 1;
 			}
 		}
 		DragFinish(hdrop);
@@ -60,12 +61,13 @@ void app::load_menus()
 	menus.insert(pair<int, menu*>(4, new menu(menu4, "problem_picker")));
 	menus.insert(pair<int, menu*>(5, new menu(menu5, "problem_solver")));
 	menus.insert(pair<int, menu*>(6, new menu(menu6, "quiz_solver")));
+	menus.insert(pair<int, menu*>(7, new menu(menu7, "problem_viewer")));
 	
 }
 
 void app::load_triggers()
 {
-
+	
 	auto disconnect = [](vector<void*>) {
 		find_int("state") = 0;
 		universal_triggers.find_bool("connected").ran = 0;
@@ -87,7 +89,14 @@ void app::load_triggers()
 		auto &str = create_string("browser", "problems");
 		req->load_in_position(&find_int("dir_forward"), 0, 'i');
 		req->load_in_position(&str,1,'s');
+
+		sleep(milliseconds(80));
+		create_request('d');
+		sleep(milliseconds(80));
+		create_request('i');
 	};
+
+
 
 	universal_triggers.add_trigger("disconnected", find_bool("connected"), 0, 0);
 	universal_triggers.find_bool("disconnected").add_function(disconnect);
@@ -103,13 +112,13 @@ void app::load_triggers()
 
 void app::run()
 {
-	
+	static bool exit = find_bool("exit");
 	originalsfmlcallback = SetWindowLongPtrW(win.getSystemHandle(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(mycallback));
 
 	Event e;
 	Clock time;
 	
-	while (win.isOpen())
+	while (!exit)
 	{
 		DragAcceptFiles(win.getSystemHandle(), 1);
 		while (win.pollEvent(e))
@@ -117,8 +126,8 @@ void app::run()
 			gui::SFML::ProcessEvent(e);
 			if (e.type == Event::Closed)
 			{
-				find_bool("exit") = 1;
 				win.close();
+				find_bool("exit") = 1;
 			}
 			
 		}
@@ -131,5 +140,5 @@ void app::run()
 		gui::SFML::Render(win);
 		win.display();
 	}
-	exit(EXIT_SUCCESS);
+	
 }
